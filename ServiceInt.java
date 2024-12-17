@@ -1,92 +1,94 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Set;
 
 class CarOperations {
+    private String userName;
     private String registrationNumber;
-    private String model;
-    private String owner;
+    private String carModel;
+    private String ownerName;
+    private int modelYear;
 
-    public void setDetails(String regNo, String model, String owner) {
-        this.registrationNumber = regNo;
-        this.model = model;
-        this.owner = owner;
+    public CarOperations(String userName, String registrationNumber, String carModel, String ownerName, int modelYear) {
+        this.userName = userName;
+        this.registrationNumber = registrationNumber;
+        this.carModel = carModel;
+        this.ownerName = ownerName;
+        this.modelYear = modelYear;
+    }
+
+    public String getRegistrationNumber() {
+        return registrationNumber;
     }
 
     public void displayDetails() {
-        System.out.println("\u001B[32m--- Car Details ---\u001B[0m");
+        System.out.println("\u001B[36m--- Car Details ---\u001B[0m");
+        System.out.println("Hello, " + userName);
         System.out.println("Registration Number: " + registrationNumber);
-        System.out.println("Car Model: " + model);
-        System.out.println("Owner Name: " + owner);
-    }
-
-    public void scheduleService(String serviceType) {
-        System.out.println("\nService Scheduled: " + serviceType);
-        System.out.println("Thank you, " + owner + "! Your car (" + model + ") is scheduled for " + serviceType + ".");
-    }
-
-    public int calculateServiceCost(String serviceType) {
-        int cost;
-        switch (serviceType.toLowerCase()) {
-            case "car wash":
-                cost = 500;
-                break;
-            case "oil change":
-                cost = 1500;
-                break;
-            case "full service":
-                cost = 3000;
-                break;
-            default:
-                System.out.println("\u001B[31mInvalid service type selected.\u001B[0m");
-                return -1;
-        }
-        return cost;
+        System.out.println("Car Model: " + carModel);
+        System.out.println("Owner Name: " + ownerName);
+        System.out.println("Model Year: " + modelYear);
     }
 }
 
-class ServiceRecord<T> {
-    private T recordData;
+class ServiceOperations {
+    private String serviceType;
+    private String registrationNumber;
+    private int cost;
 
-    public ServiceRecord(T recordData) {
-        this.recordData = recordData;
+    public ServiceOperations(String serviceType, String registrationNumber, int cost) {
+        this.serviceType = serviceType;
+        this.registrationNumber = registrationNumber;
+        this.cost = cost;
     }
 
-    public void displayRecord() {
-        System.out.println("\u001B[32mRecord Data: \u001B[0m" + recordData);
+    public String getRegistrationNumber() {
+        return registrationNumber;
+    }
+
+    public void displayServiceDetails() {
+        System.out.println("\u001B[32mService Scheduled: " + serviceType + "\u001B[0m");
+        System.out.println("Cost: \u001B[31m₹" + cost + "\u001B[0m");
     }
 }
 
 public class ServiceInt {
     static Scanner scanner = new Scanner(System.in);
-    static ArrayList<String> serviceHistory = new ArrayList<>();
-    
+    static Set<CarOperations> carDetails = new HashSet<>();
+    static ArrayList<ServiceOperations> serviceRecords = new ArrayList<>();
+
     public static void main(String[] args) {
-        CarOperations car = new CarOperations();
+        System.out.println("\u001B[34m===============================");
+        System.out.println(" Welcome to SmartCarCare System ");
+        System.out.println("===============================\u001B[0m");
+
         boolean exit = false;
 
         while (!exit) {
-            System.out.println("\n\u001B[34m===============================\u001B[0m");
-            System.out.println("\u001B[36m Welcome to the SmartCarCare System \u001B[0m");
-            System.out.println("\u001B[34m===============================\u001B[0m");
-            System.out.println("1. Enter Car Details");
-            System.out.println("2. Schedule Service");
-            System.out.println("3. View Service History");
-            System.out.println("4. Exit");
-            System.out.print("\u001B[33mEnter your choice: \u001B[0m");
+            System.out.println("\n\u001B[33m1. Register Car");
+            System.out.println("2. Check Car Details");
+            System.out.println("3. Schedule Service");
+            System.out.println("4. View Service History");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: \u001B[0m");
 
             int choice = validateIntegerInput();
 
             switch (choice) {
                 case 1:
-                    enterCarDetails(car);
+                    registerCar();
                     break;
                 case 2:
-                    scheduleCarService(car);
+                    checkCarDetails();
                     break;
                 case 3:
-                    viewServiceHistory();
+                    scheduleService();
                     break;
                 case 4:
+                    viewServiceHistory();
+                    break;
+                case 5:
                     System.out.println("\u001B[32mThank you for using SmartCarCare. Goodbye!\u001B[0m");
                     exit = true;
                     break;
@@ -94,55 +96,118 @@ public class ServiceInt {
                     System.out.println("\u001B[31mInvalid choice. Please try again.\u001B[0m");
             }
         }
-        scanner.close();
     }
 
-    private static void enterCarDetails(CarOperations car) {
+    private static void registerCar() {
+        System.out.print("\u001B[33mEnter Your Name: \u001B[0m");
+        String userName = scanner.nextLine();
+
+        System.out.print("Enter Car Registration Number: ");
+        String regNo = scanner.nextLine();
+
+        System.out.print("Enter Car Model: ");
+        String carModel = scanner.nextLine();
+
+        System.out.print("Enter Owner Name: ");
+        String ownerName = scanner.nextLine();
+
+        System.out.print("Enter Model Year: ");
+        int modelYear = validateIntegerInput();
+
+        CarOperations newCar = new CarOperations(userName, regNo, carModel, ownerName, modelYear);
+
+        if (carDetails.add(newCar)) {
+            System.out.println("\u001B[32mCar successfully registered!\u001B[0m");
+            newCar.displayDetails();
+        } else {
+            System.out.println("\u001B[31mCar is already registered!\u001B[0m");
+        }
+    }
+
+    private static void checkCarDetails() {
+        System.out.print("\u001B[33mEnter Car Registration Number to check details: \u001B[0m");
+        String regNo = scanner.nextLine();
+
+        boolean found = false;
+        for (CarOperations car : carDetails) {
+            if (car.getRegistrationNumber().equalsIgnoreCase(regNo)) {
+                car.displayDetails();
+                found = true;
+                break;
+            }
+        }
+
+        if (!found) {
+            System.out.println("\u001B[31mCar not found. Please register the car first.\u001B[0m");
+        }
+    }
+
+    private static void scheduleService() {
         System.out.print("\u001B[33mEnter Car Registration Number: \u001B[0m");
         String regNo = scanner.nextLine();
-        System.out.print("\u001B[33mEnter Car Model: \u001B[0m");
-        String model = scanner.nextLine();
-        System.out.print("\u001B[33mEnter Owner Name: \u001B[0m");
-        String owner = scanner.nextLine();
-        car.setDetails(regNo, model, owner);
 
-        System.out.println("\u001B[32mCar details successfully added!\u001B[0m");
-        car.displayDetails();
-    }
+        boolean carExists = carDetails.stream()
+                .anyMatch(car -> car.getRegistrationNumber().equalsIgnoreCase(regNo));
 
-    private static void scheduleCarService(CarOperations car) {
-        System.out.print("\u001B[33mEnter Service Type (Car Wash/Oil Change/Full Service): \u001B[0m");
-        String serviceType = scanner.nextLine();
-
-        int cost = car.calculateServiceCost(serviceType);
-        if (cost != -1) {
-            car.scheduleService(serviceType);
-            System.out.println("\u001B[32mThe cost for " + serviceType + " is: \u001B[31m₹" + cost + "\u001B[0m");
-
-            // Add service record to history
-            serviceHistory.add("Service: " + serviceType + " | Cost: ₹" + cost);
-            System.out.println("\u001B[32mService record added successfully!\u001B[0m");
+        if (!carExists) {
+            System.out.println("\u001B[31mCar not registered! Please register your car first.\u001B[0m");
+            return;
         }
+
+        System.out.println("Choose Service Type:");
+        System.out.println("1. Car Wash - ₹500");
+        System.out.println("2. Car Paint - ₹2000");
+        System.out.println("3. Full Service - ₹5000");
+        System.out.print("Enter your choice: ");
+
+        int choice = validateIntegerInput();
+        String serviceType;
+        int cost;
+
+        switch (choice) {
+            case 1:
+                serviceType = "Car Wash";
+                cost = 500;
+                break;
+            case 2:
+                serviceType = "Car Paint";
+                cost = 2000;
+                break;
+            case 3:
+                serviceType = "Full Service";
+                cost = 5000;
+                break;
+            default:
+                System.out.println("\u001B[31mInvalid service type!\u001B[0m");
+                return;
+        }
+
+        ServiceOperations service = new ServiceOperations(serviceType, regNo, cost);
+        serviceRecords.add(service);
+
+        System.out.println("\u001B[32mService successfully scheduled!\u001B[0m");
+        service.displayServiceDetails();
     }
 
     private static void viewServiceHistory() {
         System.out.println("\u001B[36m--- Service History ---\u001B[0m");
-        if (serviceHistory.isEmpty()) {
+        if (serviceRecords.isEmpty()) {
             System.out.println("\u001B[33mNo service records available.\u001B[0m");
         } else {
-            for (String record : serviceHistory) {
-                System.out.println("\u001B[32m" + record + "\u001B[0m");
+            for (ServiceOperations record : serviceRecords) {
+                System.out.println("Registration Number: " + record.getRegistrationNumber());
+                record.displayServiceDetails();
             }
         }
     }
 
     private static int validateIntegerInput() {
         while (!scanner.hasNextInt()) {
-            System.out.println("\u001B[31mInvalid input. Please enter a valid number.\u001B[0m");
+            System.out.println("\u001B[31mInvalid input. Please enter a number.\u001B[0m");
             scanner.next();
         }
         int input = scanner.nextInt();
-        scanner.nextLine(); // consume newline
+        scanner.nextLine(); 
         return input;
     }
 }
