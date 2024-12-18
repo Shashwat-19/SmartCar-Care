@@ -77,6 +77,7 @@ The system employs **object-oriented programming** concepts, a user-friendly con
 ===============================
  Welcome to SmartCarCare System
 ===============================
+
 1. Register Car
 2. Check Car Details
 3. Schedule Service
@@ -103,16 +104,20 @@ Choose Service Type:
 1. Car Wash - ₹500
 2. Car Paint - ₹2000
 3. Full Service - ₹5000
-Enter your choice: 1
+Enter your choice: 2
 Service successfully scheduled!
-Service Scheduled: Car Wash
-Cost: ₹500
+Service Scheduled: Car Paint
+Cost: ₹2000
 
 Enter your choice: 4
 --- Service History ---
 Registration Number: KA01AB1234
-Service Scheduled: Car Wash
-Cost: ₹500
+Service Scheduled: Car Paint
+Cost: ₹2000
+
+Enter your choice: 5
+Thank you for using SmartCarCare. Goodbye!
+
 ```
 ---
 
