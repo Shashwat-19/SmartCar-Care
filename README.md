@@ -2,54 +2,56 @@
 
 ## **Overview**
 
-**SmartCarCare** is a simple and efficient car service management system built using Java. It allows users to:
-- Enter and store car details such as registration number, model, and owner name.
-- Schedule car services such as Car Wash, Oil Change, or Full Service with calculated costs.
-- Maintain a service history log for tracking previous services.
+**SmartCarCare** is a comprehensive car service management system built using Java. It enables users to:
+- Register and maintain car details, such as registration number, model, and owner information.
+- Schedule car services like Car Wash, Car Paint, or Full Service with predefined costs.
+- Track and view service history for easy reference.
 
-This program demonstrates **object-oriented programming** principles, custom methods, and input validation while providing a clean console-based interface with enhanced user experience.
+The system employs **object-oriented programming** concepts, a user-friendly console interface, and robust input validation to ensure seamless operation.
 
 ---
 
 ## **Features**
 
-1. **Car Details Management**
-   - Input and display car details, including registration number, car model, and owner name.
+1. **Car Registration**
+   - Add car details, including registration number, model, and owner name.
+   - Ensure uniqueness of car entries using a `Set`.
 
 2. **Service Scheduling**
-   - Schedule services for the car, including:
+   - Book car services:
      - Car Wash: ₹500
-     - Oil Change: ₹1500
-     - Full Service: ₹3000
-   - Display service costs dynamically.
+     - Car Paint: ₹2000
+     - Full Service: ₹5000
+   - Automatically calculate and display the cost for each service.
 
-3. **Service History Log**
-   - Maintain a log of scheduled services, showing service type and cost.
+3. **Service History**
+   - Maintain a comprehensive log of all scheduled services.
+   - View past service records categorized by car registration numbers.
 
-4. **Robust Input Validation**
-   - Prevents invalid inputs during menu selection and ensures user-friendly interaction.
+4. **Robust Input Handling**
+   - Validate user input to prevent invalid entries during menu navigation and form submissions.
 
-5. **Clean Console UI**
-   - Uses ANSI color codes for a visually appealing user interface.
+5. **Enhanced Console Design**
+   - Incorporates ANSI color codes for an aesthetically pleasing user interface.
 
 ---
 
 ## **Technologies Used**
 
 - **Programming Language:** Java
-- **Concepts Demonstrated:** OOP (Object-Oriented Programming), Generics, Input Validation, Data Storage (ArrayList)
+- **Key Concepts:** OOP, Data Storage (ArrayList, HashSet), Input Validation, Console UI Design
 
 ---
 
 ## **How to Run**
 
 1. **Prerequisites**
-   - Install the latest version of [Java JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
-   - Set up `javac` and `java` in your environment path.
+   - Download and install the latest version of [Java JDK](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html).
+   - Configure `javac` and `java` in your system's environment path.
 
 2. **Run the Code**
-   - Copy the code into a file named `ServiceInt.java`.
-   - Open a terminal/command prompt and navigate to the directory containing the file.
+   - Save the code in a file named `ServiceInt.java`.
+   - Open a terminal or command prompt and navigate to the file directory.
    - Compile the program:
      ```bash
      javac ServiceInt.java
@@ -60,9 +62,10 @@ This program demonstrates **object-oriented programming** principles, custom met
      ```
 
 3. **Follow the Menu**
-   - The program displays a menu with options:
-     - Enter car details
-     - Schedule a car service
+   - Select from the displayed options to:
+     - Register a car
+     - View car details
+     - Schedule a service
      - View service history
      - Exit the program
 
@@ -71,60 +74,46 @@ This program demonstrates **object-oriented programming** principles, custom met
 ## **Sample Interaction**
 
 ```plaintext
-================================
- Welcome to the SmartCarCare System 
-================================
-1. Enter Car Details
-2. Schedule Service
-3. View Service History
-4. Exit
+===============================
+ Welcome to SmartCarCare System
+===============================
+1. Register Car
+2. Check Car Details
+3. Schedule Service
+4. View Service History
+5. Exit
 Enter your choice: 1
+Enter Your Name: Shashwat
 Enter Car Registration Number: KA01AB1234
 Enter Car Model: Tesla Model S
-Enter Owner Name: John Doe
+Enter Owner Name: Shashwat
+Enter Model Year: 2023
 
-Car details successfully added!
+Car successfully registered!
 --- Car Details ---
+Hello, Shashwat
 Registration Number: KA01AB1234
 Car Model: Tesla Model S
-Owner Name: John Doe
-
-Enter your choice: 2
-Enter Service Type (Car Wash/Oil Change/Full Service): Car Wash
-Service Scheduled: Car Wash
-Thank you, John Doe! Your car (Tesla Model S) is scheduled for Car Wash.
-The cost for Car Wash is: ₹500
-Service record added successfully!
+Owner Name: Shashwat
+Model Year: 2023
 
 Enter your choice: 3
---- Service History ---
-Service: Car Wash | Cost: ₹500
+Enter Car Registration Number: KA01AB1234
+Choose Service Type:
+1. Car Wash - ₹500
+2. Car Paint - ₹2000
+3. Full Service - ₹5000
+Enter your choice: 1
+Service successfully scheduled!
+Service Scheduled: Car Wash
+Cost: ₹500
 
 Enter your choice: 4
-Thank you for using SmartCarCare. Goodbye!
+--- Service History ---
+Registration Number: KA01AB1234
+Service Scheduled: Car Wash
+Cost: ₹500
 ```
-
----
-
-## **Code Structure**
-
-- **`CarOperations`**: Handles car details, displays car information, and manages service scheduling with cost calculation.
-- **`ServiceRecord<T>`**: A generic class for potential future extensibility to store different types of records.
-- **`ServiceInt`**: The main class that drives the program, including:
-  - Menu-driven system.
-  - Service history stored using an `ArrayList`.
-  - Input validation for smooth execution.
-
----
-
-## **Enhancements**
-
-Future improvements to consider:
-- **Persistent Storage**: Save service records to a file or database for long-term storage.
-- **Multi-Car Support**: Allow management of multiple cars simultaneously.
-- **Advanced Services**: Add more car service options.
-- **GUI Interface**: Build a graphical user interface for better user experience.
-
 ---
 
 ## **Contributing**
