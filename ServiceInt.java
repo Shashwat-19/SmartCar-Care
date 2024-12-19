@@ -122,16 +122,16 @@ public class ServiceInt {
         System.out.print("\u001B[33mEnter Your Name: \u001B[0m");
         String userName = scanner.nextLine();
 
-        System.out.print("Enter Car Registration Number: ");
+        System.out.print("\u001B[33mEnter Car Registration Number: \u001B[0m");
         String regNo = scanner.nextLine();
 
-        System.out.print("Enter Car Model: ");
+        System.out.print("\u001B[33mEnter Car Model: \u001B[0m");
         String carModel = scanner.nextLine();
 
-        System.out.print("Enter Owner Name: ");
+        System.out.print("\u001B[33mEnter Owner Name: \u001B[0m");
         String ownerName = scanner.nextLine();
 
-        System.out.print("Enter Model Year: ");
+        System.out.print("\u001B[33mEnter Model Year: \u001B[0m");
         int modelYear = validateIntegerInput();
 
         CarOperations newCar = new CarOperations(userName, regNo, carModel, ownerName, modelYear);
@@ -178,7 +178,7 @@ public class ServiceInt {
         System.out.println("1. Car Wash - ₹500");
         System.out.println("2. Car Paint - ₹2000");
         System.out.println("3. Full Service - ₹5000");
-        System.out.print("Enter your choice: ");
+        System.out.print("\u001B[33mEnter your choice: \u001B[0m");
 
         int choice = validateIntegerInput();
         String serviceType;
