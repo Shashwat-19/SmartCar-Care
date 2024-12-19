@@ -63,6 +63,11 @@ public class ServiceInt {
         System.out.println(" Welcome to SmartCarCare System ");
         System.out.println("===============================\u001B[0m");
 
+        // Call login method
+        if (!login()) {
+            return; // Exit if login fails
+        }
+
         boolean exit = false;
 
         while (!exit) {
@@ -95,6 +100,21 @@ public class ServiceInt {
                 default:
                     System.out.println("\u001B[31mInvalid choice. Please try again.\u001B[0m");
             }
+        }
+    }
+
+    private static boolean login() {
+        System.out.print("\u001B[33mEnter Username: \u001B[0m");
+        String username = scanner.nextLine();
+        System.out.print("\u001B[33mEnter Password: \u001B[0m");
+        String password = scanner.nextLine();
+
+        if (username.equals("admin") && password.equals("1234")) {
+            System.out.println("\u001B[32mLogin Successful!\u001B[0m");
+            return true;
+        } else {
+            System.out.println("\u001B[31mInvalid Credentials. Exiting...\u001B[0m");
+            return false;
         }
     }
 
@@ -207,7 +227,7 @@ public class ServiceInt {
             scanner.next();
         }
         int input = scanner.nextInt();
-        scanner.nextLine(); 
+        scanner.nextLine();
         return input;
     }
 }
