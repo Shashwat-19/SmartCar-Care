@@ -1,6 +1,6 @@
 # SmartCarCare - Car Service Management System
 
-## Overview
+
 
 **SmartCarCare** is a robust car service management system developed using Java. It enables users to register cars, schedule services, and track service history with a user-friendly console interface. Designed with object-oriented programming principles, it ensures seamless operation and robust input validation.
 
