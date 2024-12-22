@@ -17,32 +17,43 @@ Welcome to **SmartCar-Care** – an intuitive Car Service Management System buil
 ## 📸 Screenshots
 
 🔧 *Interface Sneak Peek* –
-![Screenshot 1](path_to_screenshot1.png)
-![Screenshot 2](path_to_screenshot2.png)
+![Screenshot 1](/SmartCar/CLI-1.png)
+![Screenshot 2](/SmartCar/CLI-2.png)
 
 ---
 
 ## 🛠️ Installation Guide
 
 1. **Clone the Repository**:
-bash
+```bash
    git clone https://github.com/Shashwat-19/SmartCar-Care.git
-
-
-2. **Navigate to the Directory**:
-bash
+```
+Navigate to the Project Directory:
+```bash
+Copy code
    cd SmartCar-Care
+```
+Compile the Java Files:
+```bash
+Copy code
+   javac src/*.java
+```
+Run the Program:
+```bash
+Copy code
+   java src/SmartCarCare
+```   
+## 📋 Requirements
+- **Java Development Kit (JDK)** – Ensure you have JDK 11 or higher installed.
+- **IDE (Optional)** – You can use IntelliJ IDEA, Eclipse, or NetBeans to run and modify the project.
 
+---
 
-3. **Install Dependencies**:
-bash
-   pip install -r requirements.txt
-
-
-4. **Run the Program**:
-bash
-   python smartcar.py
-
+## ⚙️ Running in an IDE (Optional)
+Open your preferred IDE (IntelliJ, Eclipse, etc.).
+Import the project as a Java project.
+Mark the src folder as the source directory.
+Build and run the SmartCarCare.java file directly from the IDE.
 
 ---
 
