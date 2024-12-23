@@ -51,7 +51,7 @@ Copy code
 
 ---
 
-## ⚙️ Running in an IDE (Optional)
+## ⚙️ Running in an IDE 
 Open your preferred IDE (IntelliJ, Eclipse, etc.).
 Import the project as a Java project.
 Mark the src folder as the source directory.
