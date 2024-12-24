@@ -1,6 +1,6 @@
 # SmartCar-Care 🚗💼
 
-Welcome to **SmartCar-Care** – an intuitive Car Service Management System built in Python! This project streamlines car servicing by managing service scheduling, customer data, and car details in one place. Designed to enhance workflow efficiency and ensure smooth car maintenance operations.
+Welcome to **SmartCar-Care** – an intuitive Car Service Management System built in Java! This project streamlines car servicing by managing service scheduling, customer data, and car details in one place. Designed to enhance workflow efficiency and ensure smooth car maintenance operations.
 
 ---
 
