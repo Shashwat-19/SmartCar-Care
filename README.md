@@ -122,7 +122,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 **Shashwat**  
 BCA (Hons), Christ University, Bangalore  
-[GitHub](https://github.com/Shashwat-19) | [LinkedIn](https://www.linkedin.com/in/shashwatk1956/)
+[GitHub](https://github.com/Shashwat-19) | [LinkedIn](https://www.linkedin.com/in/shashwatk1956/) | [Email me](shashwat1956@gmail.com)  
 
 ---
 
