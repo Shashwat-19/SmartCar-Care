@@ -18,8 +18,8 @@ Welcome to **SmartCar-Care** – an intuitive Car Service Management System buil
 
 🔧 *Interface Sneak Peek* –
 <p align="center">
-  <img src="https://github.com/Shashwat-19/SmartCar-Care/raw/main/CLI-1.png" width="45%"/>
-  <img src="https://github.com/Shashwat-19/SmartCar-Care/raw/main/CLI-2.png" width="45%"/>
+  <img src="https://github.com/Shashwat-19/SmartCar-Care/raw/main/images/CLI-1.png" width="45%"/>
+  <img src="https://github.com/Shashwat-19/SmartCar-Care/raw/main/images/CLI-2.png" width="45%"/>
 </p>
 
 ---
