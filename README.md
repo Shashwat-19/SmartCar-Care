@@ -74,16 +74,17 @@ Contributions are welcome! Here's how you can contribute:
 
 1. **Fork the repository**
 2. **Create a new branch**:
-bash
+```bash
    git checkout -b feature/new-feature
-
+```
 3. **Make your changes and commit**:
-bash
+```bash
    git commit -m 'Add new feature'
-
+```
 4. **Push to the branch**:
-bash
+```bash
    git push origin feature/new-feature
+```
 
 5. **Open a Pull Request**
 
