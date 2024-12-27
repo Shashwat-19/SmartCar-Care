@@ -51,23 +51,6 @@ Copy code
 
 ---
 
-## ⚙️ Running in an IDE (Optional)
-Open your preferred IDE (IntelliJ, Eclipse, etc.).
-Import the project as a Java project.
-Mark the src folder as the source directory.
-Build and run the SmartCarCare.java file directly from the IDE.
-
----
-
-## 🗺️ Usage
-
-1. Launch the application using the terminal or command prompt.
-2. Register new cars and manage customer profiles.
-3. Opt for available services (like car wash, paint job, etc.) and track service completion.
-4. Retrieve detailed records by searching for car registration numbers or customer IDs.
-
----
-
 ## 📚 Tech Stack
 
 - **Language** – Java ☕
@@ -103,12 +86,6 @@ bash
    git push origin feature/new-feature
 
 5. **Open a Pull Request**
-
----
-
-## 🔍 Issues and Support
-
-If you encounter any issues, please raise an issue in the GitHub repository. We value your feedback and will address issues as quickly as possible.
 
 ---
 
