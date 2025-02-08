@@ -1,55 +1,43 @@
 # SmartCar-Care 🚗💼
 
-Welcome to **SmartCar-Care** – a Car Service Management System built in Java! This project streamlines car servicing by managing service scheduling, customer data, and car details.
-
----
+Welcome to **SmartCar-Care** – a Car Service Management System built in **Java**! This project streamlines car servicing by managing service scheduling, customer data, and car details.
 
 ## ✨ Features
-
 - **Car Registration** – Register cars and store essential details.
 - **Service Management** – Schedule services like car washes, painting, and maintenance.
 - **Customer Management** – Track customer records and vehicles.
-
----
+- **Login System** – Secure access using admin credentials.
+- **Color-Coded Console Output** – Enhances user experience with colored text.
 
 ## 🛠️ Installation Guide
-
-1. **Clone the Repository**:
-```bash
-   git clone https://github.com/Shashwat-19/SmartCar-Care.git
-   cd SmartCar-Care
-```
-2. **Compile the Java Files**:
-```bash
-   javac src/*.java
-```
-3. **Run the Program**:
-```bash
-   java src/SmartCarCare
+### Clone the Repository:
+```sh
+ git clone https://github.com/Shashwat-19/SmartCar-Care.git
+ cd SmartCar-Care
 ```
 
----
+### Compile the Java Files:
+```sh
+ javac ServiceInt.java
+```
+
+### Run the Program:
+```sh
+ java ServiceInt
+```
 
 ## 📚 Tech Stack
-
 - **Language** – Java ☕
-- **File Handling**  – For data storage and retrieval
-
----
+- **Data Storage** – Uses in-memory collections (Set, List)
+- **Console Interface** – Interactive CLI-based user experience
 
 ## 🔒 License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
+This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for details.
 
 ## 📩 Contact
-
 **Shashwat**  
 BCA (Hons), Christ University, Bangalore  
-[GitHub](https://github.com/Shashwat-19) | [LinkedIn](https://www.linkedin.com/in/shashwatk1956/) | [Email me](shashwat1956@gmail.com)  
-
----
+[GitHub](https://github.com/Shashwat-19) | [LinkedIn](https://www.linkedin.com/in/shashwat19) | [Email Me](mailto:shashwat@example.com)
 
 Thank you for checking out **SmartCar-Care**! 🚘
 
