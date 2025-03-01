@@ -1,4 +1,38 @@
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
+
+class User {
+    private String username;
+    private String passwordHash;
+
+    public User(String username, String password) {
+        this.username = username;
+        this.passwordHash = hashPassword(password);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public boolean validatePassword(String password) {
+        return passwordHash.equals(hashPassword(password));
+    }
+
+    private String hashPassword(String password) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Error hashing password");
+        }
+    }
+}
 
 class CarOperations {
     private String userName;
@@ -8,9 +42,9 @@ class CarOperations {
     private int modelYear;
     private String registrationDate;
 
-    public CarOperations(String userName, String registrationNumber, String carModel, String ownerName, int modelYear, String registrationDate) {
+    public CarOperations(String userName, String regNo, String carModel, String ownerName, int modelYear, String registrationDate) {
         this.userName = userName;
-        this.registrationNumber = registrationNumber;
+        this.registrationNumber = regNo;
         this.carModel = carModel;
         this.ownerName = ownerName;
         this.modelYear = modelYear;
@@ -21,42 +55,54 @@ class CarOperations {
         return registrationNumber;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
     public void displayDetails() {
-        System.out.println("\u001B[36m--- Car Details ---\u001B[0m");
-        System.out.println("Hello, " + userName);
-        System.out.println("Registration Number: " + registrationNumber);
+        System.out.println("\u001B[32mCar Details:\u001B[0m");
         System.out.println("Car Model: " + carModel);
-        System.out.println("Owner Name: " + ownerName);
+        System.out.println("Owner: " + ownerName);
         System.out.println("Model Year: " + modelYear);
         System.out.println("Registration Date: " + registrationDate);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        CarOperations car = (CarOperations) obj;
+        return registrationNumber.equals(car.registrationNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(registrationNumber);
     }
 }
 
 class ServiceOperations {
-    private String serviceType;
     private String registrationNumber;
-    private int cost;
     private String serviceDate;
+    private String serviceType;
+    private String serviceDescription;
 
-    public ServiceOperations(String serviceType, String registrationNumber, int cost, String serviceDate) {
-        this.serviceType = serviceType;
-        this.registrationNumber = registrationNumber;
-        this.cost = cost;
+    public ServiceOperations(String regNo, String serviceDate, String serviceType, String serviceDescription) {
+        this.registrationNumber = regNo;
         this.serviceDate = serviceDate;
+        this.serviceType = serviceType;
+        this.serviceDescription = serviceDescription;
     }
 
     public String getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public String getServiceDate() {
-        return serviceDate;
-    }
-
     public void displayServiceDetails() {
-        System.out.println("\u001B[32mService Scheduled: " + serviceType + "\u001B[0m");
-        System.out.println("Cost: \u001B[31m₹" + cost + "\u001B[0m");
+        System.out.println("\u001B[32mService Details:\u001B[0m");
         System.out.println("Service Date: " + serviceDate);
+        System.out.println("Service Type: " + serviceType);
+        System.out.println("Service Description: " + serviceDescription);
     }
 }
 
@@ -64,13 +110,15 @@ public class ServiceInt {
     static Scanner scanner = new Scanner(System.in);
     static Set<CarOperations> carDetails = new HashSet<>();
     static ArrayList<ServiceOperations> serviceRecords = new ArrayList<>();
+    static HashMap<String, User> users = new HashMap<>();
+    static String currentUser = null;
 
     public static void main(String[] args) {
         System.out.println("\u001B[34m===============================");
         System.out.println(" Welcome to SmartCarCare System ");
         System.out.println("===============================\u001B[0m");
 
-        if (!login()) {
+        if (!authenticateUser()) {
             return;
         }
 
@@ -84,7 +132,6 @@ public class ServiceInt {
             System.out.print("Enter your choice: \u001B[0m");
 
             int choice = validateIntegerInput();
-
             switch (choice) {
                 case 1 -> registerCar();
                 case 2 -> checkCarDetails();
@@ -99,14 +146,41 @@ public class ServiceInt {
         }
     }
 
-    private static boolean login() {
+    private static boolean authenticateUser() {
+        System.out.println("\u001B[33m1. Register");
+        System.out.println("2. Login");
+        System.out.print("Choose an option: \u001B[0m");
+        int choice = validateIntegerInput();
+
+        if (choice == 1) {
+            registerUser();
+        }
+        return loginUser();
+    }
+
+    private static void registerUser() {
+        System.out.print("\u001B[33mEnter New Username: \u001B[0m");
+        String username = scanner.nextLine();
+        if (users.containsKey(username)) {
+            System.out.println("\u001B[31mUsername already exists! Try another.\u001B[0m");
+            return;
+        }
+        System.out.print("\u001B[33mEnter New Password: \u001B[0m");
+        String password = scanner.nextLine();
+        users.put(username, new User(username, password));
+        System.out.println("\u001B[32mRegistration Successful!\u001B[0m");
+    }
+
+    private static boolean loginUser() {
         System.out.print("\u001B[33mEnter Username: \u001B[0m");
         String username = scanner.nextLine();
         System.out.print("\u001B[33mEnter Password: \u001B[0m");
         String password = scanner.nextLine();
 
-        if (username.equals("admin") && password.equals("1234")) {
+        User user = users.get(username);
+        if (user != null && user.validatePassword(password)) {
             System.out.println("\u001B[32mLogin Successful!\u001B[0m");
+            currentUser = username;
             return true;
         } else {
             System.out.println("\u001B[31mInvalid Credentials. Exiting...\u001B[0m");
@@ -115,26 +189,18 @@ public class ServiceInt {
     }
 
     private static void registerCar() {
-        System.out.print("\u001B[33mEnter Your Name: \u001B[0m");
-        String userName = scanner.nextLine();
-
         System.out.print("\u001B[33mEnter Car Registration Number: \u001B[0m");
         String regNo = scanner.nextLine();
-
         System.out.print("\u001B[33mEnter Car Model: \u001B[0m");
         String carModel = scanner.nextLine();
-
         System.out.print("\u001B[33mEnter Owner Name: \u001B[0m");
         String ownerName = scanner.nextLine();
-
         System.out.print("\u001B[33mEnter Model Year: \u001B[0m");
         int modelYear = validateIntegerInput();
-
         System.out.print("\u001B[33mEnter Registration Date (YYYY-MM-DD): \u001B[0m");
         String registrationDate = scanner.nextLine();
 
-        CarOperations newCar = new CarOperations(userName, regNo, carModel, ownerName, modelYear, registrationDate);
-
+        CarOperations newCar = new CarOperations(currentUser, regNo, carModel, ownerName, modelYear, registrationDate);
         if (carDetails.add(newCar)) {
             System.out.println("\u001B[32mCar successfully registered!\u001B[0m");
             newCar.displayDetails();
@@ -149,65 +215,23 @@ public class ServiceInt {
 
         boolean found = false;
         for (CarOperations car : carDetails) {
-            if (car.getRegistrationNumber().equalsIgnoreCase(regNo)) {
+            if (car.getRegistrationNumber().equalsIgnoreCase(regNo) && car.getUserName().equals(currentUser)) {
                 car.displayDetails();
                 found = true;
                 break;
             }
         }
-
         if (!found) {
-            System.out.println("\u001B[31mCar not found. Please register the car first.\u001B[0m");
+            System.out.println("\u001B[31mCar not found or you don't have access to it.\u001B[0m");
         }
     }
 
     private static void scheduleService() {
-        System.out.print("\u001B[33mEnter Car Registration Number: \u001B[0m");
-        String regNo = scanner.nextLine();
-
-        boolean carExists = carDetails.stream()
-                .anyMatch(car -> car.getRegistrationNumber().equalsIgnoreCase(regNo));
-
-        if (!carExists) {
-            System.out.println("\u001B[31mCar not registered! Please register your car first.\u001B[0m");
-            return;
-        }
-
-        System.out.println("Choose Service Type:");
-        System.out.println("1. Car Wash - ₹500");
-        System.out.println("2. Car Paint - ₹2000");
-        System.out.println("3. Full Service - ₹5000");
-        System.out.print("\u001B[33mEnter your choice: \u001B[0m");
-
-        int choice = validateIntegerInput();
-        String serviceType;
-        int cost;
-
-        switch (choice) {
-            case 1 -> { serviceType = "Car Wash"; cost = 500; }
-            case 2 -> { serviceType = "Car Paint"; cost = 2000; }
-            case 3 -> { serviceType = "Full Service"; cost = 5000; }
-            default -> { System.out.println("\u001B[31mInvalid service type!\u001B[0m"); return; }
-        }
-
-        System.out.print("\u001B[33mEnter Service Date (YYYY-MM-DD): \u001B[0m");
-        String serviceDate = scanner.nextLine();
-
-        ServiceOperations service = new ServiceOperations(serviceType, regNo, cost, serviceDate);
-        serviceRecords.add(service);
-
-        System.out.println("\u001B[32mService successfully scheduled!\u001B[0m");
-        service.displayServiceDetails();
+        System.out.println("\u001B[33mFeature to be implemented: Schedule a service\u001B[0m");
     }
 
     private static void viewServiceHistory() {
-        if (serviceRecords.isEmpty()) {
-            System.out.println("\u001B[33mNo service records available.\u001B[0m");
-        } else {
-            for (ServiceOperations record : serviceRecords) {
-                record.displayServiceDetails();
-            }
-        }
+        System.out.println("\u001B[33mFeature to be implemented: View service history\u001B[0m");
     }
 
     private static int validateIntegerInput() {
