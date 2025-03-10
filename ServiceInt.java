@@ -147,20 +147,32 @@ public class ServiceInt {
     }
 
     private static boolean authenticateUser() {
-        System.out.println("\u001B[33m1. Register");
-        System.out.println("2. Login");
-        System.out.print("Choose an option: \u001B[0m");
-        int choice = validateIntegerInput();
+        while (true) {
+            System.out.println("\u001B[33m1. Register");
+            System.out.println("2. Login");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: \u001B[0m");
+            int choice = validateIntegerInput();
 
-        if (choice == 1) {
-            registerUser();
+            switch (choice) {
+                case 1 -> registerUser();
+                case 2 -> {
+                    if (loginUser()) return true;
+                }
+                case 3 -> {
+                    System.out.println("\u001B[32mExiting SmartCarCare System. Goodbye!\u001B[0m");
+                    return false;
+                }
+                default -> System.out.println("\u001B[31mInvalid choice. Please try again.\u001B[0m");
+            }
         }
-        return loginUser();
     }
 
     private static void registerUser() {
-        System.out.print("\u001B[33mEnter New Username: \u001B[0m");
+        System.out.print("\u001B[33mEnter New Username (or type 'exit' to cancel): \u001B[0m");
         String username = scanner.nextLine();
+        if (username.equalsIgnoreCase("exit")) return;
+        
         if (users.containsKey(username)) {
             System.out.println("\u001B[31mUsername already exists! Try another.\u001B[0m");
             return;
@@ -172,8 +184,10 @@ public class ServiceInt {
     }
 
     private static boolean loginUser() {
-        System.out.print("\u001B[33mEnter Username: \u001B[0m");
+        System.out.print("\u001B[33mEnter Username (or type 'exit' to cancel): \u001B[0m");
         String username = scanner.nextLine();
+        if (username.equalsIgnoreCase("exit")) return false;
+        
         System.out.print("\u001B[33mEnter Password: \u001B[0m");
         String password = scanner.nextLine();
 
@@ -183,7 +197,7 @@ public class ServiceInt {
             currentUser = username;
             return true;
         } else {
-            System.out.println("\u001B[31mInvalid Credentials. Exiting...\u001B[0m");
+            System.out.println("\u001B[31mInvalid Credentials. Try again.\u001B[0m");
             return false;
         }
     }
