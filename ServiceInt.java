@@ -86,12 +86,14 @@ class ServiceOperations {
     private String serviceDate;
     private String serviceType;
     private String serviceDescription;
+    private double serviceCost;
 
-    public ServiceOperations(String regNo, String serviceDate, String serviceType, String serviceDescription) {
+    public ServiceOperations(String regNo, String serviceDate, String serviceType, String serviceDescription, double serviceCost) {
         this.registrationNumber = regNo;
         this.serviceDate = serviceDate;
         this.serviceType = serviceType;
         this.serviceDescription = serviceDescription;
+        this.serviceCost = serviceCost;
     }
 
     public String getRegistrationNumber() {
@@ -103,6 +105,7 @@ class ServiceOperations {
         System.out.println("Service Date: " + serviceDate);
         System.out.println("Service Type: " + serviceType);
         System.out.println("Service Description: " + serviceDescription);
+        System.out.println("Service Cost: $" + serviceCost);
     }
 }
 
@@ -241,8 +244,85 @@ public class ServiceInt {
     }
 
     private static void scheduleService() {
-        System.out.println("\u001B[33mFeature to be implemented: Schedule a service\u001B[0m");
-    }
+        System.out.print("\u001B[33mEnter Car Registration Number: \u001B[0m");
+        String regNo = scanner.nextLine();
+        boolean carExists = false;
+    
+        for (CarOperations car : carDetails) {
+            if (car.getRegistrationNumber().equalsIgnoreCase(regNo) && car.getUserName().equals(currentUser)) {
+                carExists = true;
+                break;
+            }
+        }
+        if (!carExists) {
+            System.out.println("\u001B[31mCar not found or you don't have access to it.\u001B[0m");
+            return;
+        }
+    
+        while (true) { // Loop until the user chooses to exit
+            System.out.println("\u001B[33mSelect a Service:\u001B[0m");
+            System.out.println("1. Oil Change - $50");
+            System.out.println("2. Tire Rotation - $30");
+            System.out.println("3. Car Wash - $15");
+            System.out.println("4. Battery Replacement - $100");
+            System.out.println("5. Brake Inspection - $40");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = validateIntegerInput();
+    
+            if (choice == 6) {
+                System.out.println("\u001B[32mExiting service selection.\u001B[0m");
+                return;
+            }
+    
+            String serviceType = "";
+            String serviceDescription = "";
+            double serviceCost = 0;
+    
+            switch (choice) {
+                case 1 -> {
+                    serviceType = "Oil Change";
+                    serviceDescription = "Complete engine oil replacement.";
+                    serviceCost = 50;
+                }
+                case 2 -> {
+                    serviceType = "Tire Rotation";
+                    serviceDescription = "Tires rotated for even wear.";
+                    serviceCost = 30;
+                }
+                case 3 -> {
+                    serviceType = "Car Wash";
+                    serviceDescription = "Exterior and interior cleaning.";
+                    serviceCost = 15;
+                }
+                case 4 -> {
+                    serviceType = "Battery Replacement";
+                    serviceDescription = "Old battery replaced with a new one.";
+                    serviceCost = 100;
+                }
+                case 5 -> {
+                    serviceType = "Brake Inspection";
+                    serviceDescription = "Brake system checked for safety.";
+                    serviceCost = 40;
+                }
+                default -> {
+                    System.out.println("\u001B[31mInvalid choice. Please try again.\u001B[0m");
+                    continue;
+                }
+            }
+    
+            System.out.print("\u001B[33mEnter Service Date (YYYY-MM-DD): \u001B[0m");
+            String serviceDate = scanner.nextLine();
+    
+            ServiceOperations newService = new ServiceOperations(regNo, serviceDate, serviceType, serviceDescription, serviceCost);
+            serviceRecords.add(newService);
+            System.out.println("\u001B[32mService scheduled successfully!\u001B[0m");
+            newService.displayServiceDetails();
+            
+            return; // Exit after scheduling a service
+        }
+    }    
+
 
     private static void viewServiceHistory() {
         System.out.println("\u001B[33mFeature to be implemented: View service history\u001B[0m");
